@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var tortyRouter = require('./routes/torty');
@@ -32,6 +32,20 @@ app.use('/ciastka', ciastkaRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
+});
+
+MONGODB_URL='mongodb+srv://podyplomowka:Goscie!001@cluster0.ajwo5.mongodb.net/bydgoszcz'
+
+mongoose.connect(MONGODB_URL);
+
+const ciastoSchema= new mongoose.Schema({
+  nazwa: String,
+  opis: String,
+  typ: String,
+  skladniki: {mąka: Number,
+              cukier: Number,
+              jajka: Number,
+              olej: Number,}
 });
 
 // app.use('/users',function(req, res, next) {
